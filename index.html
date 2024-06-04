@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POP Ah</title>
+  </head>
+  <body>
+    <div
+      id="container"
+      class="section"
+      onmousedown="onMouseDown()"
+      onmouseup="onMouseUp()"
+    >
+      <h1 id="title">Ah&nbsp;:&nbsp;<span id="score">0</span></h1>
+    </div>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: unset;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  #title {
+    color: #000;
+    text-shadow: 2px 2px #ddd;
+    font-size: 60px;
+  }
+  .section {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    background-image: url(./assets/img/goose-1.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    user-select: none;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  function onMouseDown() {
+    const scoreEl = document.getElementById('score')
+    let score = Number(scoreEl.innerText)
+    scoreEl.innerText = score + 1
+
+    const containerEl = document.getElementById('container')
+    containerEl.style.backgroundImage = 'url(./assets/img/goose-2.png)'
+
+    const audioEl = new Audio('./assets/mp3/honk.mp3')
+    audioEl.play()
+  }
+
+  function onMouseUp() {
+    const containerEl = document.getElementById('container')
+    containerEl.style.backgroundImage = 'url(./assets/img/goose-1.png)'
+  }
+</script>
