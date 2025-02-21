@@ -14,6 +14,9 @@
 </html>
 
 <style>
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
   body {
     margin: unset;
     width: 100vw;
@@ -39,7 +42,6 @@
 </style>
 
 <script>
-  // 使用 functional programming 的觀點，定義純粹的事件處理函數
   const updateScore = () => {
     const scoreEl = document.getElementById('score')
     const score = Number(scoreEl.innerText)
@@ -56,19 +58,16 @@
     audioEl.play()
   }
 
-  // 事件處理：指標按下時，計分、換圖、撥放音訊
   const handlePointerDown = (event) => {
     updateScore()
     changeBackground('./assets/img/goose-2.png')
     playAudio()
   }
 
-  // 事件處理：指標放開時，恢復原本圖片
   const handlePointerUp = (event) => {
     changeBackground('./assets/img/goose-1.png')
   }
 
-  // 當 DOM 載入完成後，綁定 pointer 事件
   document.addEventListener('DOMContentLoaded', () => {
     const containerEl = document.getElementById('container')
     containerEl.addEventListener('pointerdown', handlePointerDown)
