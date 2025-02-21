@@ -7,12 +7,7 @@
     <title>POP Ah</title>
   </head>
   <body>
-    <div
-      id="container"
-      class="section"
-      onmousedown="onMouseDown()"
-      onmouseup="onMouseUp()"
-    >
+    <div id="container" class="section">
       <h1 id="title">Ah&nbsp;:&nbsp;<span id="score">0</span></h1>
     </div>
   </body>
@@ -44,20 +39,41 @@
 </style>
 
 <script>
-  function onMouseDown() {
+  // 使用 functional programming 的觀點，定義純粹的事件處理函數
+  const updateScore = () => {
     const scoreEl = document.getElementById('score')
-    let score = Number(scoreEl.innerText)
+    const score = Number(scoreEl.innerText)
     scoreEl.innerText = score + 1
+  }
 
+  const changeBackground = (url) => {
     const containerEl = document.getElementById('container')
-    containerEl.style.backgroundImage = 'url(./assets/img/goose-2.png)'
+    containerEl.style.backgroundImage = `url(${url})`
+  }
 
+  const playAudio = () => {
     const audioEl = new Audio('./assets/mp3/honk.mp3')
     audioEl.play()
   }
 
-  function onMouseUp() {
-    const containerEl = document.getElementById('container')
-    containerEl.style.backgroundImage = 'url(./assets/img/goose-1.png)'
+  // 事件處理：指標按下時，計分、換圖、撥放音訊
+  const handlePointerDown = (event) => {
+    updateScore()
+    changeBackground('./assets/img/goose-2.png')
+    playAudio()
   }
+
+  // 事件處理：指標放開時，恢復原本圖片
+  const handlePointerUp = (event) => {
+    changeBackground('./assets/img/goose-1.png')
+  }
+
+  // 當 DOM 載入完成後，綁定 pointer 事件
+  document.addEventListener('DOMContentLoaded', () => {
+    const containerEl = document.getElementById('container')
+    containerEl.addEventListener('pointerdown', handlePointerDown)
+    containerEl.addEventListener('pointerup', handlePointerUp)
+    // 也可以考慮 pointercancel 事件來處理中斷的情況
+    containerEl.addEventListener('pointercancel', handlePointerUp)
+  })
 </script>
